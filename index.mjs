@@ -12,20 +12,22 @@ const ctcA = accA.contract(backend);
 const startBuyer = async () => {
   const acc = await stdlib.newTestAccount(startingBalance);
   await acc.tokenAccept(nft.id);
+  await stdlib.transfer(accA, acc, 1, nft.id);
   const ctc = acc.contract(backend, ctcA.getInfo());
-  const b = ctc.a.buy();
-  console.log("Buy api call complete");
-  await stdlib.wait(10);
+  // const b = await ctc.a.buy();
+  // console.log(`Buy api call complete.\nBuyer NFT Balance: ${await stdlib.balanceOf(acc, nft.id)}`);
+  // await stdlib.wait(10);
   // why is this returning zero?
   const numNet = stdlib.formatCurrency(await stdlib.balanceOf(acc));
   console.log(`Number of network tokens: ${numNet}`);
-  const numTok = stdlib.formatWithDecimals(await stdlib.balanceOf(acc, nft.id), 4);
-  console.log(`numTok is ${numTok}`);
-  if(stdlib.formatCurrency(numTok) > 0){
-    console.log(`Running deposit function`);
-    const d = ctc.a.deposit();
-    console.log(`deposit api call complete`);
-  }
+  console.log(`Running deposit function`);
+  const d = await ctc.a.deposit();
+  console.log(`deposit api call complete success=${d}`);
+  console.log(`Buyer NFT Balance test: ${await stdlib.balanceOf(acc, nft.id)}`);
+  // add a try...catch here for wrong caller
+  const w = await ctc.a.wd();
+  console.log(`Withdraw function complete`);
+  console.log(`Buyer wd balance: ${await stdlib.balanceOf(acc, nft.id)}`);
 };
 
 console.log('Starting backends...');
@@ -35,9 +37,9 @@ await Promise.all([
     cost: stdlib.parseCurrency(5),
     tok: nft.id,
     supply: nft.supply,
-    launched: (c) => {
+    launched: async (c) => {
       console.log(`Contract ready at ${c}`);
-      startBuyer();
+      await startBuyer();
     },
   }),
 ]);
