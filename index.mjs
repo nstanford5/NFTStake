@@ -24,14 +24,18 @@ const makeUser = async (i) => {
 
 const deposit = async (ctc) => {
   let d = false;
+  let endTime = 0;
   try{
     console.log(`Running deposit function`);
-    d = await ctc.a.deposit();
+    endTime = await ctc.a.deposit();
+    d = true;
   }catch(e){
     console.log(e);
   }
   console.log(`Deposit function complete is ${d}`);
+  return endTime;
 }
+
 const wd = async (ctc) => {
   let d = false;
   try{
@@ -48,27 +52,17 @@ const tokBal = async (acc) => {
   console.log(`Buyer ${stdlib.formatAddress(acc.getAddress())} nft balance is ${b}`);
 }
 
+const getTime = async () => {
+  const t = await stdlib.getNetworkTime();
+  console.log(`The current network time from the frontend is: ${t}`);
+}
+
 const go = async () => {
   const [acc0, ctc0] = await makeUser(1);
   const [acc1, ctc1] = await makeUser(2);
   await sellTok(accA, acc0);
 
-  await deposit(ctc0);
-  await deposit(ctc1);// fail: contract full
-
-  await tokBal(acc0);
-  await wd(ctc1);// fail: not for you
-  await wd(ctc0);
-  await tokBal(acc0);
-
-  await sellTok(acc0, acc1);
-  await tokBal(acc1);
-
-  await deposit(ctc1);
-  await tokBal(acc1);
-  await stdlib.wait(10);
-  await wd(ctc1);
-  await tokBal(acc1);
+  const t0 = await deposit(ctc0);
 };
 
 // should you implement this with disconnect?
@@ -76,6 +70,7 @@ await ctcA.p.Admin({
   params: {
     tok: nft.id,
     deadline: 30,// in blocks
+    rewards: stdlib.parseCurrency(30),
   },    
   launched: async (c) => {
     console.log(`Contract ready at ${c}`);
