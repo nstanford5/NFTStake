@@ -2,8 +2,10 @@
 
 export const main = Reach.App(() => {
   const A = Participant('Admin', {
-    cost: UInt,
-    tok: Token,
+    params: Object({
+      tok: Token,
+      deadline: UInt,// in blocks
+    }),
     launched: Fun([Contract], Null),
   });
   const B = API({
@@ -13,11 +15,11 @@ export const main = Reach.App(() => {
   init();
 
   A.only(() => {
-    const cost = declassify(interact.cost);
-    const tok = declassify(interact.tok);
+    const p = declassify(interact.params);
+    const {tok, deadline} = p;
   })
   const amt = 1;
-  A.publish(cost, tok);
+  A.publish(tok, deadline);
   A.interact.launched(getContract());
 
   // UInt here is going to store the time for rewards
@@ -29,9 +31,8 @@ export const main = Reach.App(() => {
     .invariant(pMap.size() == invFlag, "Size wrong")
     .while(true)
     .api_(B.deposit, () => {
-      check(invFlag != 0, "sorry this function is not ready");
+      check(invFlag == 0, "sorry, this contract is already occupied");// not necessary to compile, but I like it
       check(isNone(pMap[this]), "you are already here");
-      check(balance(tok) == amt, "dont call me maybe")
       return[[0, [amt, tok]], (ret) => {
         pMap[this] = 10;// dummy 10, this should be time
         ret(true);
@@ -40,9 +41,8 @@ export const main = Reach.App(() => {
       }];
     })
     .api_(B.wd, () => {
-      check(invFlag != 1, "sorry this function is not ready");
+      check(invFlag == 1, "No assets here to withdraw");
       check(isSome(pMap[this]), "this function is not for you");
-      check(balance(tok) == 0, "dont call me maybe");// I don't think this had effect
       return[[0, [0, tok]], (ret) => {
         transfer(amt, tok).to(this);
         delete pMap[this];
