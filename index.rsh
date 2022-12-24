@@ -1,7 +1,6 @@
 /**
  * In this version funds are inaccessible until the deadline
  * future versions may allow withdrawal and payments pro-rata
- * 
  */
 
 'reach 0.1';
@@ -30,12 +29,14 @@ export const main = Reach.App(() => {
   })
   const amt = 1;
   A.publish(tok, deadline, rewards);
+  commit();
+  A.pay(rewards);
   A.interact.launched(getContract());
 
   const pMap = new Map(Address, UInt);
   const [invFlag] = parallelReduce([0])
     .paySpec([tok])
-    .invariant(balance() == 0, "network token balance wrong")
+    .invariant(balance() == rewards, "network token balance wrong")
     .invariant(balance(tok) == invFlag, "nft balance wrong")
     .invariant(pMap.size() == invFlag, "Size wrong")
     .while(true)
@@ -61,6 +62,7 @@ export const main = Reach.App(() => {
         return[invFlag - 1];
       }];
     })
+  transfer(rewards).to(A);
   commit();
   exit();
 })
