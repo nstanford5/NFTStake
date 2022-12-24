@@ -689,41 +689,32 @@ struct T0 {
   bool _None;
   uint256 _Some;
   }
+enum _enum_T2 {deposit0_73, wd0_73}
 struct T2 {
-  address payable v627;
-  uint256 v628;
-  uint256 v629;
-  uint256 v638;
-  uint256 v639;
-  uint256 v640;
-  address payable v641;
-  uint256 v669;
+  _enum_T2 which;
+  bool _deposit0_73;
+  bool _wd0_73;
   }
-enum _enum_T3 {deposit0_86, wd0_86}
 struct T3 {
-  _enum_T3 which;
-  bool _deposit0_86;
-  bool _wd0_86;
+  uint256 elem0;
+  T2 elem1;
   }
 struct T4 {
-  uint256 elem0;
-  T3 elem1;
-  }
-struct T5 {
   uint256 elem0;
   address payable elem1;
   uint256 elem2;
   uint256 elem3;
   }
-struct T6 {
+struct T5 {
   address payable elem0;
   uint256 elem1;
   uint256 elem2;
   uint256 elem3;
-  uint256 elem4;
-  uint256 elem5;
-  address payable elem6;
-  uint256 elem7;
+  }
+struct T6 {
+  address payable v610;
+  uint256 v611;
+  uint256 v621;
   }
 contract ReachContract is Stdlib {
   uint256 current_step;
@@ -734,10 +725,10 @@ contract ReachContract is Stdlib {
   function _reachCreationTime() external view returns (uint256) { return creation_time; }
   function _reachCurrentTime() external view returns (uint256) { return current_time; }
   function _reachCurrentState() external view returns (uint256, bytes memory) { return (current_step, current_svbs); }
-  event _reach_e0(address _who, T5 _a);
-  event _reach_e2(address _who, T4 _a);
-  event _reach_oe_v787(uint256 v0);
-  event _reach_oe_v904(bool v0);
+  event _reach_e0(address _who, T4 _a);
+  event _reach_e2(address _who, T3 _a);
+  event _reach_oe_v757(uint256 v0);
+  event _reach_oe_v872(bool v0);
   receive () external payable {}
   fallback () external payable {}
   mapping (address => T0) _reachm_0;
@@ -760,128 +751,109 @@ contract ReachContract is Stdlib {
     bool _reachr_wd;
     }
   function _reacha_dead(bool _a, Memory memory _Memory) internal view {
-    reachRequire(((current_step == uint256(3))), uint256(7) /*'(./index.rsh:18:9:property binding,[],Just "Incorrect state: not leaf")'*/);
-    (T2 memory _svs) = abi.decode(current_svbs, (T2));
-    _Memory._reachr_dead = _svs.v669;
+    reachRequire((false), uint256(7) /*'(./index.rsh:24:9:property binding,[],Just "Incorrect state: empty blt")'*/);
     }
-  struct _F1547 {
-    bool v1533;
-    T3 v1534;
+  struct _F1370 {
+    bool v1356;
+    T2 v1357;
     }
   function _reacha_deposit(bool _a, Memory memory _Memory) internal  {
-    _F1547 memory _f;
-    _f.v1534.which = _enum_T3.deposit0_86;
-    _f.v1534._deposit0_86 = _f.v1533;
-    T4  memory _ja;
+    _F1370 memory _f;
+    _f.v1357.which = _enum_T2.deposit0_73;
+    _f.v1357._deposit0_73 = _f.v1356;
+    T3  memory _ja;
     _ja.elem0 = (uint256(0));
-    _ja.elem1 = _f.v1534;
+    _ja.elem1 = _f.v1357;
     _reachi_2(_ja, _Memory);
     }
-  struct _F1548 {
-    bool v1537;
-    T3 v1538;
+  struct _F1371 {
+    bool v1360;
+    T2 v1361;
     }
   function _reacha_wd(bool _a, Memory memory _Memory) internal  {
-    _F1548 memory _f;
-    _f.v1538.which = _enum_T3.wd0_86;
-    _f.v1538._wd0_86 = _f.v1537;
-    T4  memory _ja;
+    _F1371 memory _f;
+    _f.v1361.which = _enum_T2.wd0_73;
+    _f.v1361._wd0_73 = _f.v1360;
+    T3  memory _ja;
     _ja.elem0 = (uint256(0));
-    _ja.elem1 = _f.v1538;
+    _ja.elem1 = _f.v1361;
     _reachi_2(_ja, _Memory);
     }
-  function _reachi_0(T5 memory _a, Memory memory _Memory) internal  {
+  function _reachi_0(T4 memory _a, Memory memory _Memory) internal  {
     reachRequire((! locked), uint256(8) /*'locked'*/);
     emit _reach_e0(msg.sender, _a);
-    reachRequire((((_a.elem0) == uint256(0)) || (current_time == (_a.elem0))), uint256(9) /*'time check at ./index.rsh:26:5:dot'*/);
+    reachRequire((((_a.elem0) == uint256(0)) || (current_time == (_a.elem0))), uint256(9) /*'time check at ./index.rsh:32:5:dot'*/);
     
-    reachRequire((msg.value == uint256(0)), uint256(10) /*'(./index.rsh:26:5:dot,[],"verify network token pay amount")'*/);
-    T6  memory _ja;
+    reachRequire((msg.value == uint256(0)), uint256(10) /*'(./index.rsh:32:5:dot,[],"verify network token pay amount")'*/);
+    T5  memory _ja;
     _ja.elem0 = (_a.elem1);
     _ja.elem1 = (_a.elem2);
-    _ja.elem2 = (_a.elem3);
-    _ja.elem3 = uint256(0);
-    _ja.elem4 = (_a.elem3);
-    _ja.elem5 = uint256(0);
-    _ja.elem6 = payable(msg.sender);
-    _ja.elem7 = uint256(block.number);
+    _ja.elem2 = uint256(0);
+    _ja.elem3 = uint256(block.number);
     _reachl_1(_ja, _Memory);
     }
-  struct _F1550 {
-    uint256 v787;
+  struct _F1373 {
+    uint256 v757;
     }
-  function _reachi_2(T4 memory _a, Memory memory _Memory) internal  {
-    _F1550 memory _f;
-    reachRequire((current_step == uint256(3)), uint256(11) /*'state check at ./index.rsh:32:53:dot'*/);
-    (T2 memory _svs) = abi.decode(current_svbs, (T2));
+  function _reachi_2(T3 memory _a, Memory memory _Memory) internal  {
+    _F1373 memory _f;
+    reachRequire((current_step == uint256(3)), uint256(11) /*'state check at ./index.rsh:36:35:dot'*/);
+    (T6 memory _svs) = abi.decode(current_svbs, (T6));
     reachRequire((! locked), uint256(12) /*'locked'*/);
     emit _reach_e2(msg.sender, _a);
-    reachRequire((((_a.elem0) == uint256(0)) || (current_time == (_a.elem0))), uint256(13) /*'time check at ./index.rsh:32:53:dot'*/);
-    if ((_a.elem1).which == _enum_T3.deposit0_86) {
-    reachRequire(((_svs.v638 == uint256(0))), uint256(14) /*'(reach standard library:57:5:application,[at ./index.rsh:46:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:45:25:application call to [unknown function] (defined at: ./index.rsh:45:25:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:45:25:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:32:53:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "sorry, this contract is already occupied")'*/);
-    reachRequire((((uint256((__reachm_0Ref(payable(msg.sender))).which)) == uint256(0))), uint256(15) /*'(reach standard library:57:5:application,[at ./index.rsh:47:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:45:25:application call to [unknown function] (defined at: ./index.rsh:45:25:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:45:25:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:32:53:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "you are already here")'*/);
-    reachRequire((msg.value == uint256(0)), uint256(16) /*'(./index.rsh:32:53:dot,[],"verify network token pay amount")'*/);
-    reachRequire((checkPayAmt(msg.sender, _svs.v627, uint256(1))), uint256(17) /*'(./index.rsh:32:53:dot,[],"verify non-network token pay amount")'*/);
-    _f.v787 = safeAdd(uint256(block.number), _svs.v628);
+    reachRequire((((_a.elem0) == uint256(0)) || (current_time == (_a.elem0))), uint256(13) /*'time check at ./index.rsh:36:35:dot'*/);
+    if ((_a.elem1).which == _enum_T2.deposit0_73) {
+    reachRequire(((_svs.v621 == uint256(0))), uint256(14) /*'(reach standard library:57:5:application,[at ./index.rsh:43:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:42:25:application call to [unknown function] (defined at: ./index.rsh:42:25:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:42:25:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:36:35:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "sorry, this contract is already occupied")'*/);
+    reachRequire((((uint256((__reachm_0Ref(payable(msg.sender))).which)) == uint256(0))), uint256(15) /*'(reach standard library:57:5:application,[at ./index.rsh:44:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:42:25:application call to [unknown function] (defined at: ./index.rsh:42:25:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:42:25:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:36:35:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "you are already here")'*/);
+    reachRequire((msg.value == uint256(0)), uint256(16) /*'(./index.rsh:36:35:dot,[],"verify network token pay amount")'*/);
+    reachRequire((checkPayAmt(msg.sender, _svs.v610, uint256(1))), uint256(17) /*'(./index.rsh:36:35:dot,[],"verify non-network token pay amount")'*/);
+    _f.v757 = safeAdd(uint256(block.number), _svs.v611);
     _reachm_0[payable(msg.sender)].which = _enum_T0.Some;
-    _reachm_0[payable(msg.sender)]._Some = _f.v787;
+    _reachm_0[payable(msg.sender)]._Some = _f.v757;
     
-    emit _reach_oe_v787( _f.v787);
-    _Memory._reachr_deposit = _f.v787;
-    T6  memory _ja;
-    _ja.elem0 = _svs.v627;
-    _ja.elem1 = _svs.v628;
-    _ja.elem2 = _svs.v629;
-    _ja.elem3 = (safeAdd(_svs.v638, uint256(1)));
-    _ja.elem4 = _svs.v639;
-    _ja.elem5 = _svs.v640;
-    _ja.elem6 = payable(msg.sender);
-    _ja.elem7 = uint256(block.number);
+    emit _reach_oe_v757( _f.v757);
+    _Memory._reachr_deposit = _f.v757;
+    T5  memory _ja;
+    _ja.elem0 = _svs.v610;
+    _ja.elem1 = _svs.v611;
+    _ja.elem2 = (safeAdd(_svs.v621, uint256(1)));
+    _ja.elem3 = uint256(block.number);
     _reachl_1(_ja, _Memory);
-    } else if ((_a.elem1).which == _enum_T3.wd0_86) {
-    reachRequire(((_svs.v638 == uint256(1))), uint256(18) /*'(reach standard library:57:5:application,[at ./index.rsh:58:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:57:20:application call to [unknown function] (defined at: ./index.rsh:57:20:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:57:20:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:32:53:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "No assets here to withdraw")'*/);
-    reachRequire((((uint256((__reachm_0Ref(payable(msg.sender))).which)) == uint256(1))), uint256(19) /*'(reach standard library:57:5:application,[at ./index.rsh:59:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:57:20:application call to [unknown function] (defined at: ./index.rsh:57:20:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:57:20:function exp),at ./index.rsh:32:53:application call to [unknown function] (defined at: ./index.rsh:32:53:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "this function is not for you")'*/);
-    reachRequire((msg.value == uint256(0)), uint256(20) /*'(./index.rsh:32:53:dot,[],"verify network token pay amount")'*/);
-    reachRequire((checkPayAmt(msg.sender, _svs.v627, uint256(0))), uint256(21) /*'(./index.rsh:32:53:dot,[],"verify non-network token pay amount")'*/);
-    safeTokenTransfer(_svs.v627, payable(msg.sender), uint256(1));
+    } else if ((_a.elem1).which == _enum_T2.wd0_73) {
+    reachRequire(((_svs.v621 == uint256(1))), uint256(18) /*'(reach standard library:57:5:application,[at ./index.rsh:53:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:52:20:application call to [unknown function] (defined at: ./index.rsh:52:20:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:52:20:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:36:35:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "No assets here to withdraw")'*/);
+    reachRequire((((uint256((__reachm_0Ref(payable(msg.sender))).which)) == uint256(1))), uint256(19) /*'(reach standard library:57:5:application,[at ./index.rsh:54:12:application call to "check" (defined at: reach standard library:49:32:function exp),at ./index.rsh:52:20:application call to [unknown function] (defined at: ./index.rsh:52:20:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:52:20:function exp),at ./index.rsh:36:35:application call to [unknown function] (defined at: ./index.rsh:36:35:function exp),at ./index.rsh:37:14:application call to [unknown function] (defined at: ./index.rsh:37:14:function exp)],Just "this function is not for you")'*/);
+    reachRequire((msg.value == uint256(0)), uint256(20) /*'(./index.rsh:36:35:dot,[],"verify network token pay amount")'*/);
+    reachRequire((checkPayAmt(msg.sender, _svs.v610, uint256(0))), uint256(21) /*'(./index.rsh:36:35:dot,[],"verify non-network token pay amount")'*/);
+    safeTokenTransfer(_svs.v610, payable(msg.sender), uint256(1));
     delete _reachm_0[payable(msg.sender)];
-    emit _reach_oe_v904( (true));
+    emit _reach_oe_v872( (true));
     _Memory._reachr_wd = (true);
-    T6  memory _ja;
-    _ja.elem0 = _svs.v627;
-    _ja.elem1 = _svs.v628;
-    _ja.elem2 = _svs.v629;
-    _ja.elem3 = (safeSub(_svs.v638, uint256(1)));
-    _ja.elem4 = (safeSub(_svs.v639, _svs.v629));
-    _ja.elem5 = (safeAdd(_svs.v640, _svs.v629));
-    _ja.elem6 = _svs.v641;
-    _ja.elem7 = uint256(block.number);
+    T5  memory _ja;
+    _ja.elem0 = _svs.v610;
+    _ja.elem1 = _svs.v611;
+    _ja.elem2 = (safeSub(_svs.v621, uint256(1)));
+    _ja.elem3 = uint256(block.number);
     _reachl_1(_ja, _Memory);
     }
     }
-  function _reachl_1(T6 memory _a, Memory memory _Memory) internal  {
-    T2 memory nsvs;
-    nsvs.v627 = _a.elem0;
-    nsvs.v628 = _a.elem1;
-    nsvs.v629 = _a.elem2;
-    nsvs.v638 = _a.elem3;
-    nsvs.v639 = _a.elem4;
-    nsvs.v640 = _a.elem5;
-    nsvs.v641 = _a.elem6;
-    nsvs.v669 = (((__reachm_0Ref(_a.elem6)).which == _enum_T0.Some ? (__reachm_0Ref(_a.elem6))._Some : uint256(0)));
+  function _reachl_1(T5 memory _a, Memory memory _Memory) internal  {
+    T6 memory nsvs;
+    nsvs.v610 = _a.elem0;
+    nsvs.v611 = _a.elem1;
+    nsvs.v621 = _a.elem2;
     current_step = uint256(3);
     current_time = uint256(block.number);
     current_svbs = abi.encode(nsvs);
     }
-  constructor(T5 memory v1542) payable {
+  constructor(T4 memory v1365) payable {
     current_step = 0x0;
     creation_time = uint256(block.number);
     Memory memory _Memory;
-    _reachi_0(v1542, _Memory);
+    _reachi_0(v1365, _Memory);
     }
-  function _reachp_2(T4 calldata v1545) external payable returns (bool) {
+  function _reachp_2(T3 calldata v1368) external payable returns (bool) {
     Memory memory _Memory;
-    _reachi_2(v1545, _Memory);
+    _reachi_2(v1368, _Memory);
     }
   function dead() external view returns (uint256) {
     Memory memory _Memory;

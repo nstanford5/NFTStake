@@ -61,8 +61,18 @@ const go = async () => {
   const [acc0, ctc0] = await makeUser(1);
   const [acc1, ctc1] = await makeUser(2);
   await sellTok(accA, acc0);
-
   const t0 = await deposit(ctc0);
+  console.log(`First user needs to wait until: ${t0}`);
+  await deposit(ctc1);// should fail
+  await tokBal(acc0);
+  
+  await stdlib.wait(5);
+  await wd(ctc0);
+  await sellTok(acc0, acc1);
+  await tokBal(acc1);
+  await deposit(ctc1);
+  await wd(ctc0);// should fail
+  await wd(ctc1);
 };
 
 // should you implement this with disconnect?

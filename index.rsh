@@ -35,7 +35,7 @@ export const main = Reach.App(() => {
   const pMap = new Map(Address, UInt);
   const [invFlag] = parallelReduce([0])
     .paySpec([tok])
-    .invariant(balance() == 0)
+    .invariant(balance() == 0, "network token balance wrong")
     .invariant(balance(tok) == invFlag, "nft balance wrong")
     .invariant(pMap.size() == invFlag, "Size wrong")
     .while(true)
